@@ -1,7 +1,8 @@
 # Potato-Disease-classification-predication-using-cnn-and-tensorflow-
 ## Potato Disease Prediction Web Application
 
-![Screenshot (484)](https://github.com/AbhishekSingh010/Potato-Disease-classification-predication-using-cnn-and-tensorflow-/assets/113212983/52b46701-46a4-4762-8fad-42943e09ace9)
+![Screenshot (484)](https://github.com/AbhishekSingh010/Potato-Disease-classification-predication-using-cnn-and-tensorflow-/assets/113212983/ec2cb2de-cc0a-4be5-a4b3-c508a88580d4)
+
 
 
 This web application is designed to predict potato diseases using a Convolutional Neural Network (CNN) implemented with TensorFlow. It provides a user-friendly interface to input potato leaf images and receive predictions regarding the health of the potatoes.
@@ -55,7 +56,8 @@ Access the web application by opening a web browser and navigating to http://loc
 
 
 
-![Screenshot (483)](https://github.com/AbhishekSingh010/Potato-Disease-classification-predication-using-cnn-and-tensorflow-/assets/113212983/f14428b5-725e-44c8-8f36-09ed50a072ba)
+
+![Screenshot (484)](https://github.com/AbhishekSingh010/Potato-Disease-classification-predication-using-cnn-and-tensorflow-/assets/113212983/9f10aab8-1220-469d-ada8-ac4387ac0071)
 
 Technology Stack
 Backend: FastAPI
