@@ -45,14 +45,14 @@ pip install -r requirements.txt
 Usage
 Start the FastAPI server:
 
-bash
+#### bash
 Copy code
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 Access the web application by opening a web browser and navigating to http://localhost:8000.
-or
-just simply running main.py file
-copy code
-python main.py
+
+- just simply running main.py file
+    python main.py
+
 
 
 ![Screenshot (483)](https://github.com/AbhishekSingh010/Potato-Disease-classification-predication-using-cnn-and-tensorflow-/assets/113212983/f14428b5-725e-44c8-8f36-09ed50a072ba)
