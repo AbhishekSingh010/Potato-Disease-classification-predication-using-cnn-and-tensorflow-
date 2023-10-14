@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Classification</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Center the content vertically and horizontally */
+        body {
+            background: url('https://img.freepik.com/premium-photo/fresh-organic-potato-plant-field_86639-848.jpg?w=826') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Ensure the content takes up the full viewport height */
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.8); /* Add a semi-transparent white background to the container */
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        /* Chat-style messages */
+        .chat-container {
+            background-color: #333; /* Dark background */
+            color: #fff; /* White text */
+            padding: 16px;
+            border-radius: 8px;
+            max-width: 400px;
+            margin: 0 auto;
+            overflow-y: scroll; /* Enable scrolling for chat messages */
+            max-height: 300px; /* Limit the chat container height */
+        }
+
+        .message {
+            margin-bottom: 8px;
+        }
+
+        .user-message {
+            background-color: #007BFF; /* Blue for user's messages */
+            padding: 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .bot-message {
+            background-color: #28A745; /* Green for bot's messages */
+            padding: 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto p-8">
+        <h1 class="text-3xl font-semibold">Potato Disease Prediction</h1>
+
+        <form action="/predict" method="POST" enctype="multipart/form-data" class="mt-4">
+            <div class="mb-4">
+                <label for="file" class="block text-gray-700 font-bold">Choose an image:</label>
+                <input type="file" name="file" id="file" class="border-gray-300 p-2 rounded-md w-full">
+            </div>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Upload and Predict
+            </button>
+        </form>
+
+        {% if prediction %}
+        <div class="mt-8">
+            <h2 class="text-2xl font-semibold">Prediction:</h2>
+            <p class="text-lg">Class: {{ prediction.class }}</p>
+            <p class="text-lg">Confidence: {{ prediction.confidence }}%</p>
+        </div>
+        {% endif %}
+
+       <!-- Chat-style messages -->
+<div class="chat-container mt-8" id="chat-container">
+    <!-- JavaScript will add chat messages here -->
+</div>
+
+<!-- JavaScript for dynamic chat messages -->
+<script>
+    // Function to add a user message to the chat container
+    function addUserMessage(message) {
+        const chatContainer = document.getElementById("chat-container");
+        const userMessage = document.createElement("div");
+        userMessage.className = "message";
+        userMessage.innerHTML = `<div class="user-message">${message}</div>`;
+        chatContainer.appendChild(userMessage);
+    }
+
+    // Function to add a bot message to the chat container
+    function addBotMessage(message) {
+        const chatContainer = document.getElementById("chat-container");
+        const botMessage = document.createElement("div");
+        botMessage.className = "message";
+        botMessage.innerHTML = `<div class="bot-message">${message}</div>`;
+        chatContainer.appendChild(botMessage);
+    }
+
+    // Function to update the chat based on the predicted class
+    function updateChat(predictedClass) {
+        // Clear previous chat messages
+        const chatContainer = document.getElementById("chat-container");
+        chatContainer.innerHTML = "";
+        
+        // Display user message
+        if(predictedClass=='Early Blight' || 'Late Blight'){
+        addUserMessage("How can I prevent " + predictedClass + "?");
+        }
+        else if(predictedClass=='Healthy'){
+            addUserMessage("How I maintain health of my " + predictedClass + " potato ?");
+        }
+        else{
+            addUserMessage("Please upload picture of your diseased potato plant leaf");
+        }
+
+
+        // Simulate a delay for bot response (you can replace this with actual bot responses)
+        setTimeout(function() {
+            const botResponse = getBotResponse(predictedClass);
+            addBotMessage(botResponse);
+        }, 1000);
+    }
+
+    // Function to get bot response based on the predicted class
+    function getBotResponse(predictedClass) {
+        // Define bot responses based on predicted classes
+        const botResponses = {
+            "Early Blight": "Early blight can be prevented by practicing crop rotation and ensuring proper spacing between plants. Avoid overhead watering to reduce humidity, and apply fungicides if necessary.",
+            "Late Blight": "To prevent late blight, use disease-resistant potato varieties, apply fungicides, and remove infected plants promptly. Avoid watering late in the day and provide good ventilation.",
+            "Healthy": "You are great Farmer your potatos are healthy but some point are To maintain healthy potatoes, use high-quality seeds, rotate crops, and ensure proper soil drainage. Monitor for signs of disease and pests, and follow recommended cultivation practices.",
+        };
+
+        // Get bot response based on the predicted class
+        return botResponses[predictedClass] || "Sorry, I don't have information on that.";
+    }
+
+    // Example usage: Update the chat based on the predicted class
+    const predictedClass = "{{ prediction.class }}"; // Replace with actual predicted class from FastAPI
+    updateChat(predictedClass);
+</script>
+
+    </div>
+</body>
+</html>
